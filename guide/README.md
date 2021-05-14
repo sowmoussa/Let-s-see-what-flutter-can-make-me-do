@@ -1,16 +1,8 @@
 # guide
+This project helps you to simulate a covid-19 test.
 
-A new Flutter project.
+Coronaviruses are a group of related RNA viruses that cause diseases in mammals and birds.
 
-## Getting Started
+In humans and birds, they cause respiratory tract infections that can range from mild to lethal. 
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Mild illnesses in humans include some cases of the common cold (which is also caused by other viruses, predominantly rhinoviruses), while more lethal varieties can cause SARS, MERS, and COVID-19. In cows and pigs they cause diarrhea, while in mice they cause hepatitis and encephalomyelitis.
