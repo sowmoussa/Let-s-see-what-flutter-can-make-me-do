@@ -4,8 +4,9 @@ import './../models/Transaction.dart';
 
 class TransactionList extends StatelessWidget {
   final List<Transaction> _userTransaction;
+  final Function _deleteTransaction;
 
-  TransactionList(this._userTransaction);
+  TransactionList(this._userTransaction, this._deleteTransaction);
 
   @override
   Widget build(BuildContext context) {
@@ -33,48 +34,39 @@ class TransactionList extends StatelessWidget {
           : ListView.builder(
               itemBuilder: (ctx, index) {
                 return Card(
-                  child: Row(
-                    children: [
-                      Container(
-                        margin: EdgeInsets.symmetric(
-                          vertical: 10,
-                          horizontal: 15,
-                        ),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Theme.of(context).primaryColor,
-                            width: 2,
-                          ),
-                        ),
+                  elevation: 5,
+                  margin: EdgeInsets.symmetric(
+                    vertical: 8,
+                    horizontal: 20,
+                  ),
+                  child: ListTile(
+                    leading: CircleAvatar(
+                      radius: 30,
+                      child: Padding(
                         padding: EdgeInsets.all(10),
-                        child: Text(
-                          '\$${_userTransaction[index].amount.toStringAsFixed(2)}',
-                          style: TextStyle(
-                            color: Theme.of(context).primaryColor,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                          ),
+                        child: FittedBox(
+                          child: Text('\$${_userTransaction[index].amount}'),
                         ),
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            _userTransaction[index].title,
-                            style: Theme.of(context).textTheme.headline6,
-                          ),
-                          Text(
-                            DateFormat.yMMMd()
-                                .format(_userTransaction[index].date),
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 10,
-                            ),
-                          ),
-                        ],
-                      )
-                    ],
+                    ),
+                    title: Text(
+                      _userTransaction[index].title,
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
+                    subtitle: Text(
+                      DateFormat.yMMMd()
+                          .format(_userTransaction[index].date)
+                          .toString(),
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
+                    trailing: IconButton(
+                      onPressed: () =>
+                          _deleteTransaction(_userTransaction[index].id),
+                      icon: Icon(
+                        Icons.delete,
+                        color: Theme.of(context).errorColor,
+                      ),
+                    ),
                   ),
                 );
               },
