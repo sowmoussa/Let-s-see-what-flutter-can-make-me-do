@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:recipes/screens/meals_detail_screen.dart';
 import './../models/meal.dart';
 
 class MealItem extends StatelessWidget {
+  final String id;
   final String title;
   final String imageUrl;
   final int duration;
@@ -9,6 +11,7 @@ class MealItem extends StatelessWidget {
   final Affordability affordability;
 
   MealItem({
+    @required this.id,
     @required this.title,
     @required this.imageUrl,
     @required this.duration,
@@ -16,12 +19,39 @@ class MealItem extends StatelessWidget {
     @required this.affordability,
   });
 
-  void selectedMeal() {}
+  String get complexityText {
+    switch (complexity) {
+      case Complexity.Challenging:
+        return "Challenging";
+      case Complexity.Hard:
+        return "Hard";
+      default:
+        return "Simple";
+    }
+  }
+
+  String get affordabilityText {
+    switch (affordability) {
+      case Affordability.Affordable:
+        return "Affordable";
+      case Affordability.Luxurious:
+        return "Luxurious";
+      default:
+        return "Pricey";
+    }
+  }
+
+  void selectedMeal(BuildContext context) {
+    Navigator.of(context).pushNamed(
+      MealsDetailScreen.routeName,
+      arguments: id,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: selectedMeal,
+      onTap: () => selectedMeal(context),
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
@@ -44,7 +74,63 @@ class MealItem extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                 ),
+                Positioned(
+                  right: 10,
+                  bottom: 20,
+                  child: Container(
+                    width: 250,
+                    color: Colors.black45,
+                    padding: EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+                    child: Text(
+                      title,
+                      style: TextStyle(fontSize: 26, color: Colors.white),
+                      softWrap: true,
+                      overflow: TextOverflow.fade,
+                    ),
+                  ),
+                )
               ],
+            ),
+            Padding(
+              padding: EdgeInsets.all(20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.schedule,
+                      ),
+                      SizedBox(
+                        width: 6,
+                      ),
+                      Text("$duration mins"),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.work,
+                      ),
+                      SizedBox(
+                        width: 6,
+                      ),
+                      Text("$complexityText"),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.attach_money,
+                      ),
+                      SizedBox(
+                        width: 6,
+                      ),
+                      Text("$affordabilityText"),
+                    ],
+                  ),
+                ],
+              ),
             )
           ],
         ),
